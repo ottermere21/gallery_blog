@@ -1,41 +1,26 @@
 //app 서버 생성
 const express = require("express");
 const mysql = require("mysql2");
-const db = require("./models/gallery_blog_db.js");
+
+//import swaggerUi from "swagger-ui-express";
+//import swaggerFile from "./swagger/swagger-output.json" assert {type:"json"};
+
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger/swagger-output.json");
 
 const app = express();
 
-app.set('port', 3000);
+//Swagger UI 설정
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile, {explorer: true}));
 
-//라우팅
-app.get("/", (req, res) => {
-    res.send("Hello. Node!"); 
-});
+const db = require("./models/gallery_blog_db.js");
+const router = require("./controller/gallery_blog_controller.js");
 
+app.use(express.json());    //JSON 형식의 데이터 파싱할 때 필요
+app.set("port", 3000);
 
-app.get("/gallery", (req, res) => {
-    db.connection.query(`SELECT * FROM gallery`, (err, results) => {
-        if (err) {
-            console.log(err);
-        }
-        res.send(results);
-    });
-});
+app.use("/", router);
 
-
-
-app.get("/blog", (req, res) => {
-    db.connection.query(`SELECT * FROM blog`, (err, results) => {
-        if (err)
-            console.log(err);
-        res.send(results);
-    });
-});
-
-/*
-app.listen(app.get("port"));
-console.log("Listening on", app.get("port"));
-*/
 
 
 app.listen(app.get("port"), () => {
@@ -44,6 +29,10 @@ app.listen(app.get("port"), () => {
 
 
 //app 서버 실행
+/*
+app.listen(app.get("port"));
+console.log("Listening on", app.get("port"));
+*/
 /*
 app.listen(3000, () => {
     console.log("서버 실행 중");

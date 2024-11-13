@@ -11,6 +11,11 @@
   "dependencies": {
     "express": "^4.21.1",
     "mysql": "^2.18.1",
-    "mysql2": "^3.11.3"
+    "mysql2": "^3.11.3",
+    "swagger-autogen": "^2.23.7"
+  },
+  "devDependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }

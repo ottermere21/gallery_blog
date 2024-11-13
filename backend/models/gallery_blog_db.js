@@ -8,19 +8,6 @@ const connection = mysql.createConnection({
     database : 'gallery_blog'
 });
 
-
-/*
-module.exports = {
-    connection : mysql.createConnection({
-        host : 'localhost',
-        user : 'root',
-        password : '386902',
-        database : 'gallery_blog'
-    })
-};
-*/
-
-
 // MySQL Connection 실행
 connection.connect(error => {
     if (error) {
@@ -29,17 +16,6 @@ connection.connect(error => {
     console.log("Successfully connected to the database.");
 
 });
-
-//test 출력
-/*
-const blogQuery = "SELECT * FROM blog";
-
-connection.query(blogQuery, function(err, results, fileds) {
-    if (err)
-        console.log(err);
-    console.log(results);
-});
-*/
 
 module.exports = {connection};
 
